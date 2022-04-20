@@ -1,0 +1,42 @@
+version: '3.2'
+
+services:
+  doit-api:
+    build: ./doit-api
+    command: ./.docker/entrypoint.sh
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./doit-api:/doit-api
+      - /doit-api/node_modules
+      - /doit-api/vendor
+    networks:
+      - doit-network
+
+  doit-front:
+    build: ./doit-front
+    command: ./.docker/entrypoint.sh
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./doit-front:/doit-front
+      - /doit-front/node_modules
+    networks:
+      - doit-network
+
+  doit-mysql:
+    build: ./.docker/mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: doit_app
+      MYSQL_ROOT_PASSWORD: "123"
+    networks:
+      - doit-network
+
+networks:
+  doit-network:
+      driver: bridge

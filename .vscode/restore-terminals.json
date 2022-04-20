@@ -1,0 +1,17 @@
+{
+    "artificialDelayMilliseconds": 300,
+    "keepExistingTerminalsOpen": false,
+    "runOnStartup": true,
+    "terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "compose up",
+                    "commands": [
+                        "docker-compose up"
+                    ]
+                }
+            ]
+        }
+    ]
+}
