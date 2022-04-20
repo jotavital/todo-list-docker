@@ -1,0 +1,28 @@
+:root{
+    --navBarHeight: 60px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.bg-light-gray {
+    color: white;
+    background-color: rgb(215, 215, 226);
+}
+
+.bg-blue{
+    background-color: blue;
+}
+
+.app-navbar{
+    height: var(--navBarHeight);
+}
+
+.full-body-height{
+    height: calc(100vh - var(--navBarHeight));
+}
