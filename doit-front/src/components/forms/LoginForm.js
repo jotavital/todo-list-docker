@@ -9,7 +9,6 @@ function LoginForm() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        console.log(data);
 
         apiClient.get(process.env.REACT_APP_SANCTUM_CSRF_COOKIE).then(response => {
             apiClient.post('/login', data)
@@ -17,7 +16,7 @@ function LoginForm() {
                     navigate('/');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
         });
     }

@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('user', UserController::class)->middleware('auth:sanctum');
+Route::resource('user', UserController::class)->middleware('auth:web');
 
 Route::post('/login', [UserController::class, 'login']);

@@ -5,7 +5,7 @@ function Home() {
         console.log("logando");
 
         apiClient.get('/user').then(response => {
-            console.log(response);
+            console.log(response.data);
         });
     }
 
