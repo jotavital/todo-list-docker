@@ -71,9 +71,9 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return response()->json('Successfully authenticated.', 200);
+            return response()->json(true, 200);
         }
 
-        return response()->json('Failed to authenticate.', 401);
+        return response()->json(false, 401);
     }
 }

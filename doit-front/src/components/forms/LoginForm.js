@@ -13,10 +13,15 @@ function LoginForm() {
         apiClient.get(process.env.REACT_APP_SANCTUM_CSRF_COOKIE).then(response => {
             apiClient.post('/login', data)
                 .then((response) => {
-                    navigate('/');
+                    if (response.data) {
+                        localStorage.setItem('isUserLogged', response.data);
+                        navigate('/');
+                    } else {
+                        console.error('Credenciais incorretas. Tente novamente.');
+                    }
                 })
                 .catch((error) => {
-                    console.error(error);
+                    console.error('Credenciais incorretas. Tente novamente.');
                 });
         });
     }

@@ -2,10 +2,9 @@ import { apiClient } from '../providers/apiClient';
 
 function Home() {
     function logar() {
-        console.log("logando");
 
         apiClient.get('/user').then(response => {
-            console.log(response.data);
+            console.log(localStorage.getItem('isUserLogged') === 'true');
         });
     }
 
@@ -14,6 +13,7 @@ function Home() {
         <>
             <h1>home</h1>
 
+            <h2>{localStorage.getItem('isUserLogged')}</h2>
             <button onClick={logar}>testar rota logado</button>
         </>
     );
