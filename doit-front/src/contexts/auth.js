@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         apiClient.get(process.env.REACT_APP_SANCTUM_CSRF_COOKIE).then(response => {
             apiClient.post('/login', data)
                 .then((response) => {
-                    if (response.status === 200 && !response.data == false) {
+                    if (response.status === 200 && !response.data === false) {
                         setUser(response.data[0]);
                         localStorage.setItem('authenticatedUser', JSON.stringify(response.data[0]));
 
