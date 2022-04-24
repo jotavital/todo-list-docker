@@ -71,7 +71,9 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return response()->json(true, 200);
+            return response()->json([
+                Auth::user()
+            ], 200);
         }
 
         return response()->json(false, 401);

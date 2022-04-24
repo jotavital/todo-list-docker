@@ -2,8 +2,8 @@ import './App.css';
 import NavBar from './components/NavBar';
 import AppRoutes from './components/router/AppRoutes';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useTheme } from '@mui/material';
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from './contexts/auth';
 
 function App() {
     return (

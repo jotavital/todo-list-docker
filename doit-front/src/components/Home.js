@@ -1,20 +1,16 @@
-import { apiClient } from '../providers/apiClient';
+import { AuthContext } from '../contexts/auth';
+import { useContext } from 'react';
 
 function Home() {
-    function logar() {
 
-        apiClient.get('/user').then(response => {
-            console.log(localStorage.getItem('isUserLogged') === 'true');
-        });
-    }
+    const { isUserAuthenticated, user } = useContext(AuthContext);
 
     return (
-
         <>
             <h1>home</h1>
-
-            <h2>{localStorage.getItem('isUserLogged')}</h2>
-            <button onClick={logar}>testar rota logado</button>
+            <h2>isUserAuthenticated: {String(isUserAuthenticated)}</h2>
+            <h2>localStorage.getItem('authenticatedUser'): {String(localStorage.getItem('authenticatedUser'))}</h2>
+            <h2>user: {String(user)}</h2>
         </>
     );
 }

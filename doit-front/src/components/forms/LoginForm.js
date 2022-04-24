@@ -1,37 +1,23 @@
 import { Grid, Button, TextField, Stack } from "@mui/material";
+import { useContext } from "react";
 import { useForm } from 'react-hook-form';
-import { apiClient } from '../../providers/apiClient';
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth";
 
 function LoginForm() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const onSubmit = (data) => {
-
-        apiClient.get(process.env.REACT_APP_SANCTUM_CSRF_COOKIE).then(response => {
-            apiClient.post('/login', data)
-                .then((response) => {
-                    if (response.data) {
-                        localStorage.setItem('isUserLogged', response.data);
-                        navigate('/');
-                    } else {
-                        console.error('Credenciais incorretas. Tente novamente.');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Credenciais incorretas. Tente novamente.');
-                });
-        });
+        login(data);
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                <TextField fullWidth label='E-mail' type='email' {...register('email', { required: true })} />
+                <TextField fullWidth label='E-mail' type='email' defaultValue='teste@g.com' {...register('email', { required: true })} />
                 {errors.email && "Campo obrigatório"}
-                <TextField fullWidth label='Senha' type='password' {...register('password', { required: true })} />
+                <TextField fullWidth label='Senha' type='password' defaultValue='123' {...register('password', { required: true })} />
                 {errors.password && "Campo obrigatório"}
                 <Grid container justifyContent='center'>
                     <Button variant='contained' color='success' type='submit'>Entrar</Button>
