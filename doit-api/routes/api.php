@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('user', UserController::class)->middleware('auth:web');
+Route::resource('user', UserController::class)->middleware('auth:sanctum')->except(['store']);
+
+Route::post('/user', [UserController::class, 'store']);
 
 Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
