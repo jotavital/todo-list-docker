@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import LoginForm from "./forms/LoginForm";
+import LoginForm from "../forms/LoginForm";
 
 function Login() {
     return (

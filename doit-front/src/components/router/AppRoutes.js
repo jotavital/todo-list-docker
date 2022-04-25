@@ -3,9 +3,9 @@ import {
     Route
 } from 'react-router-dom';
 
-import Home from '../Home';
-import Login from '../Login';
-import Register from '../Register';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 import PrivateRoute from './PrivateRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 import NotFound from '../NotFound';

@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import RegisterForm from "./forms/RegisterForm";
+import RegisterForm from "../forms/RegisterForm";
 
 function Register() {
     return (

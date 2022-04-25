@@ -1,6 +1,6 @@
-import { AuthContext } from '../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 import { useContext } from 'react';
-import ConsoleLogUsers from './test/ConsoleLogUsers';
+import ConsoleLogUsers from '../test/ConsoleLogUsers';
 
 function Home() {
 
