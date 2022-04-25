@@ -7,6 +7,8 @@ import Home from '../Home';
 import Login from '../Login';
 import Register from '../Register';
 import PrivateRoute from './PrivateRoute';
+import UnauthenticatedRoute from './UnauthenticatedRoute';
+import NotFound from '../NotFound';
 
 function AppRoutes() {
 
@@ -17,8 +19,17 @@ function AppRoutes() {
                     <Home />
                 </PrivateRoute>
             } />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={
+                <UnauthenticatedRoute>
+                    <Login />
+                </UnauthenticatedRoute>
+            } />
+            <Route path='/register' element={
+                <UnauthenticatedRoute>
+                    <Register />
+                </UnauthenticatedRoute>
+            } />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }
