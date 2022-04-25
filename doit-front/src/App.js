@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import AppRoutes from './components/router/AppRoutes';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from './contexts/auth';
 
 function App() {
     return (
@@ -10,8 +11,10 @@ function App() {
             <CssBaseline />
             <div className="App">
                 <BrowserRouter>
-                    <NavBar />
-                    <AppRoutes />
+                    <AuthProvider>
+                        <NavBar />
+                        <AppRoutes />
+                    </AuthProvider>
                 </BrowserRouter>
             </div>
         </>

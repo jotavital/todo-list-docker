@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,27 +12,39 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link as RouterLink } from 'react-router-dom';
-
-const pages = [
-    {
-        name: 'Home',
-        url: '/'
-    },
-    {
-        name: 'Login',
-        url: '/login'
-    },
-    {
-        name: 'Cadastro',
-        url: '/register'
-    }
-];
-
-const settings = ['Perfil', 'Logout'];
+import { AuthContext, AuthProvider } from '../contexts/auth';
 
 const NavBar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const { logout } = useContext(AuthContext);
+
+    const pages = [
+        {
+            name: 'Home',
+            action: '/'
+        },
+        {
+            name: 'Login',
+            action: '/login'
+        },
+        {
+            name: 'Cadastro',
+            action: '/register'
+        }
+    ];
+
+    const settings = [
+        {
+            name: 'Perfil',
+            action: '/user/profile'
+        },
+        {
+            name: 'Logout',
+            action: logout
+        }
+    ];
+
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -48,6 +60,11 @@ const NavBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogout = () => {
+        handleCloseUserMenu();
+        logout();
+    }
 
     return (
         <AppBar position="static">
@@ -95,7 +112,7 @@ const NavBar = () => {
                                 <MenuItem
                                     key={page.name}
                                     onClick={handleCloseNavMenu}
-                                    component={RouterLink} to={page.url}
+                                    component={RouterLink} to={page.action}
                                 >
                                     <Typography textAlign="center">{page.name}</Typography>
                                 </MenuItem>
@@ -108,12 +125,12 @@ const NavBar = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        LOGO
+                        Do It
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                component={RouterLink} to={page.url}
+                                component={RouterLink} to={page.action}
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -146,9 +163,15 @@ const NavBar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
+                                setting.action != logout ? (
+                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={RouterLink} to={setting.action}>
+                                        <Typography textAlign="center">{setting.name}</Typography>
+                                    </MenuItem>
+                                ) : (
+                                    <MenuItem key={setting.name} onClick={handleLogout}>
+                                        <Typography textAlign="center">{setting.name}</Typography>
+                                    </MenuItem>
+                                )
                             ))}
                         </Menu>
                     </Box>
@@ -157,4 +180,5 @@ const NavBar = () => {
         </AppBar>
     );
 };
+
 export default NavBar;
