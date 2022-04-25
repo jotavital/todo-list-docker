@@ -1,18 +1,8 @@
 import { useState, useContext } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, MenuItem, Tooltip, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { AuthContext, AuthProvider } from '../contexts/auth';
+import { AuthContext } from '../contexts/auth';
 
 const NavBar = () => {
     const { logout } = useContext(AuthContext);
@@ -76,7 +66,7 @@ const NavBar = () => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        Do It
+                        DoIt
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -125,7 +115,7 @@ const NavBar = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        Do It
+                        DoIt
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -163,7 +153,7 @@ const NavBar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                setting.action != logout ? (
+                                setting.action !== logout ? (
                                     <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={RouterLink} to={setting.action}>
                                         <Typography textAlign="center">{setting.name}</Typography>
                                     </MenuItem>

@@ -12,13 +12,13 @@ function AppRoutes() {
 
     return (
         <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/register' element={
+            <Route path='/' element={
                 <PrivateRoute>
-                    <Register />
+                    <Home />
                 </PrivateRoute>
-            }></Route>
+            } />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
         </Routes>
     );
 }
