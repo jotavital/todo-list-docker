@@ -1,8 +1,10 @@
-import { Grid, Button, TextField, Stack } from "@mui/material";
+import { Grid, Button, Stack } from "@mui/material";
 import { useContext } from "react";
 import { useForm } from 'react-hook-form';
 import { AuthContext } from "../../contexts/auth";
 import ConsoleLogUsers from '../test/ConsoleLogUsers';
+import EmailInput from "./inputs/EmailInput";
+import PasswordInput from "./inputs/PasswordInput";
 
 function LoginForm() {
 
@@ -14,12 +16,10 @@ function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                <TextField fullWidth label='E-mail' type='email' defaultValue='teste@g.com' {...register('email', { required: true })} />
-                {errors.email && "Campo obrigatório"}
-                <TextField fullWidth label='Senha' type='password' defaultValue='123' {...register('password', { required: true })} />
-                {errors.password && "Campo obrigatório"}
+                <EmailInput register={register} errors={errors} />
+                <PasswordInput register={register} errors={errors} />
                 <Grid container justifyContent='center'>
                     <Button variant='contained' color='success' type='submit'>Entrar</Button>
                 </Grid>
