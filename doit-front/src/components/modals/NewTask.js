@@ -13,9 +13,12 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import { useForm } from 'react-hook-form';
+import NewTaskForm from '../forms/NewTaskForm';
 
 export default function NewTaskModal() {
     const [open, setOpen] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,20 +50,8 @@ export default function NewTaskModal() {
                     </Grid>
                 </Grid>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
+                    <NewTaskForm handleClose={handleClose} />
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color='error' variant='outlined'>Voltar</Button>
-                    <Button color='success' variant='contained'>Salvar</Button>
-                </DialogActions>
             </Dialog>
         </div>
     );
