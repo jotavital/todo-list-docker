@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/debugStyles.css';
 import NavBar from './components/NavBar';
 import AppRoutes from './components/router/AppRoutes';
 import CssBaseline from '@mui/material/CssBaseline';

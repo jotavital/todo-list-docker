@@ -1,16 +1,17 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import NewTask from "../modals/NewTask";
 
 function Tasks() {
     return (
-        <Grid container sx={{ bgcolor: 'warning.main' }}>
-            <Grid container sx={{ bgcolor: 'error.main' }}>
-                <Grid item xs={12}>
+        <Grid container>
+            <Grid container>
+                <Grid item xs={12} padding={3}>
                     <Typography variant="h3" textAlign="center">Minhas tarefas</Typography>
                 </Grid>
             </Grid>
-            <Grid container sx={{ bgcolor: 'warning.main' }}>
-                <Grid item xs={12}>
-                    <Typography variant="h3" textAlign="center">Minhas tarefas</Typography>
+            <Grid container>
+                <Grid container justifyContent="center" padding={1}>
+                    <NewTask />
                 </Grid>
             </Grid>
         </Grid>

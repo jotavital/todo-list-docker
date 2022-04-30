@@ -10,15 +10,6 @@ body {
     color: #fff !important;
 }
 
-.bg-light-gray {
-    color: white;
-    background-color: rgb(215, 215, 226);
-}
-
-.bg-blue{
-    background-color: blue;
-}
-
 .app-navbar{
     height: var(--navBarHeight);
 }
