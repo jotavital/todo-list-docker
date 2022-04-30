@@ -1,18 +1,14 @@
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const UnauthenticatedRoute = ({ children }) => {
 
-    const location = useLocation();
-    const referrer = location.state?.from?.pathname || "/";
-
     const { isUserAuthenticated } = useContext(AuthContext);
 
-    if (isUserAuthenticated) {
-        return <Navigate to={referrer} />
+    if (isUserAuthenticated()) {
+        return <Navigate to={-1} replace={true} />
     }
-
     return children;
 }
 

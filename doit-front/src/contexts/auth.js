@@ -1,7 +1,6 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 import { apiClient } from '../providers/apiClient';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -10,15 +9,6 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('authenticatedUser');
-
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-
-    }, []);
 
     const login = (data) => {
         apiClient.post('/login', data)
@@ -52,8 +42,17 @@ export const AuthProvider = ({ children }) => {
         navigate('/login');
     }
 
+    const isUserAuthenticated = () => {
+        const storedUser = localStorage.getItem('authenticatedUser');
+
+        if (storedUser) {
+            return true;
+        }
+        return false;
+    }
+
     return (
-        <AuthContext.Provider value={{ isUserAuthenticated: !!user, user, login, logout }}>
+        <AuthContext.Provider value={{ isUserAuthenticated, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

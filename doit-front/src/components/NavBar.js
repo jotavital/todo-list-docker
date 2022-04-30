@@ -10,11 +10,13 @@ const NavBar = () => {
     const pages = [];
     const settings = [];
 
-    if (isUserAuthenticated) {
-        pages.push({
-            name: 'Home',
-            action: '/'
-        });
+    if ((isUserAuthenticated())) {
+        pages.push(
+            {
+                name: 'Minhas tarefas',
+                action: '/tasks'
+            }
+        );
 
         settings.push(
             {
@@ -136,7 +138,7 @@ const NavBar = () => {
                         ))}
                     </Box>
 
-                    {isUserAuthenticated &&
+                    {isUserAuthenticated() &&
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Configurações">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
