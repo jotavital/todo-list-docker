@@ -5,7 +5,8 @@ import { useState } from "react";
 
 function Tasks() {
 
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(true);
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
 
     const handleOpenSnackbar = () => {
         setIsSnackbarOpen(true);
@@ -28,8 +29,8 @@ function Tasks() {
             </Grid>
             <Grid container>
                 <Grid container justifyContent="center" padding={1}>
-                    <NewTaskModal />
-                    <CustomSnackbar message='teste' isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
+                    <NewTaskModal setSnackbarMessage={setSnackbarMessage} handleOpenSnackbar={handleOpenSnackbar} />
+                    <CustomSnackbar message={snackbarMessage} isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
                     <Button variant="outlined" onClick={handleOpenSnackbar}>
                         Abrir mensagem
                     </Button>

@@ -5,7 +5,8 @@ import DueDateInput from "./inputs/DueDateInput";
 import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
-function NewTaskForm({ handleClose }) {
+
+function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarMessage }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
@@ -15,7 +16,9 @@ function NewTaskForm({ handleClose }) {
         apiClient.post('/task', data)
             .then((response) => {
                 if (response.data) {
-                    console.log("sucesso total");
+                    handleCloseModal();
+                    setSnackbarMessage("Tarefa adicionada");
+                    handleOpenSnackbar();
                 } else {
                     console.error("ocorreu um erro");
                 }
@@ -23,6 +26,7 @@ function NewTaskForm({ handleClose }) {
             .catch((error) => {
                 console.error(error);
             });
+
     }
 
     return (
@@ -32,7 +36,7 @@ function NewTaskForm({ handleClose }) {
                 <TaskDescriptionInput register={register} errors={errors} />
                 <DueDateInput control={control} />
                 <DialogActions>
-                    <Button onClick={handleClose} color='error' variant='outlined'>Voltar</Button>
+                    <Button onClick={handleCloseModal} color='error' variant='outlined'>Voltar</Button>
                     <Button color='success' type='submit' variant='contained'>Salvar</Button>
                 </DialogActions>
             </Stack>

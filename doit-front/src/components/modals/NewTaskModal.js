@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
     Fab,
     Dialog,
+    Button,
     DialogContent,
     DialogTitle,
     Grid,
@@ -11,24 +12,24 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import NewTaskForm from '../forms/NewTaskForm';
 
-export default function NewTaskModal() {
-    const [open, setOpen] = useState(false);
+export default function NewTaskModal({ handleOpenSnackbar, setSnackbarMessage }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
         <div>
-            <Fab color="success" variant="extended" onClick={handleClickOpen}>
+            <Fab color="success" variant="extended" onClick={handleOpenModal}>
                 <AddIcon />
                 Nova tarefa
             </Fab>
-            <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+            <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth maxWidth='sm'>
                 <Grid container>
                     <Grid item xs={11}>
                         <DialogTitle>
@@ -37,14 +38,14 @@ export default function NewTaskModal() {
                     </Grid>
                     <Grid container item xs={1} alignItems='center' justifyContent='center'>
                         <Grid>
-                            <IconButton onClick={handleClose}>
+                            <IconButton onClick={handleCloseModal}>
                                 <CloseIcon></CloseIcon>
                             </IconButton>
                         </Grid>
                     </Grid>
                 </Grid>
                 <DialogContent>
-                    <NewTaskForm handleClose={handleClose} />
+                    <NewTaskForm handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} setSnackbarMessage={setSnackbarMessage} />
                 </DialogContent>
             </Dialog>
         </div>
