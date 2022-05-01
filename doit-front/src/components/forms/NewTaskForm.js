@@ -3,13 +3,26 @@ import { useForm } from 'react-hook-form';
 import TaskTitleInput from './inputs/TaskTitleInput';
 import DueDateInput from "./inputs/DueDateInput";
 import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
-
+import { apiClient } from '../../providers/apiClient';
+import { format as formatDate } from 'date-fns';
 function NewTaskForm({ handleClose }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        data.due_date = formatDate(data.due_date, 'yyyy-MM-dd HH:mm:ii');
+
+        apiClient.post('/task', data)
+            .then((response) => {
+                if (response.data) {
+                    console.log("sucesso total");
+                } else {
+                    console.error("ocorreu um erro");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     return (

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('user', UserController::class)->middleware('auth:sanctum')->except(['store']);
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::resource('user', UserController::class)->except(['store']);
+        Route::resource('task', TaskController::class);
+    }
+);
 
 Route::post('/user', [UserController::class, 'store']);
 
