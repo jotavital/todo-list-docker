@@ -1,45 +1,36 @@
-import * as React from 'react';
+import { Component } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-export default function CustomSnackbar({ message }) {
-    const [open, setOpen] = React.useState(false);
+class CustomSnackBar extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-    const handleSnackbarOpen = () => {
-        setOpen(true);
-    };
-
-    const handleSnackbarClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
-    };
-
-    return (
-        <Stack spacing={2} sx={{ width: '100%' }}>
-            <Button variant="outlined" onClick={handleSnackbarOpen}>
-                Open success snackbar
-            </Button>
-            <Snackbar
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                open={open}
-                autoHideDuration={5000}
-                onClose={handleSnackbarClose}
-            >
-                <MuiAlert
-                    elevation={6}
-                    variant="filled"
-                    onClose={handleSnackbarClose}
-                    severity="success"
-                    sx={{ width: '100%' }}
+    render() {
+        return (
+            <Stack spacing={2} sx={{ width: '100%' }}>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    open={this.props.isOpen}
+                    autoHideDuration={5000}
+                    onClose={this.props.handleCloseSnackbar}
                 >
-                    {message}
-                </MuiAlert>
-            </Snackbar>
-        </Stack>
-    );
+                    <MuiAlert
+                        elevation={6}
+                        variant="filled"
+                        onClose={this.props.handleCloseSnackbar}
+                        severity="success"
+                        sx={{ width: '100%' }}
+                    >
+                        {this.props.message}
+                    </MuiAlert>
+                </Snackbar>
+            </Stack>
+        );
+    }
 }
+
+export default CustomSnackBar;

@@ -1,8 +1,24 @@
-import { Grid, Typography } from "@mui/material";
-import NewTask from "../modals/NewTask";
+import { Grid, Typography, Button } from "@mui/material";
+import NewTaskModal from "../modals/NewTaskModal";
 import CustomSnackbar from '../snackbars/CustomSnackbar';
+import { useState } from "react";
 
 function Tasks() {
+
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(true);
+
+    const handleOpenSnackbar = () => {
+        setIsSnackbarOpen(true);
+    }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setIsSnackbarOpen(false);
+    }
+
     return (
         <Grid container>
             <Grid container>
@@ -12,8 +28,11 @@ function Tasks() {
             </Grid>
             <Grid container>
                 <Grid container justifyContent="center" padding={1}>
-                    <NewTask />
-                    <CustomSnackbar message='teste' />
+                    <NewTaskModal />
+                    <CustomSnackbar message='teste' isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
+                    <Button variant="outlined" onClick={handleOpenSnackbar}>
+                        Abrir mensagem
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
