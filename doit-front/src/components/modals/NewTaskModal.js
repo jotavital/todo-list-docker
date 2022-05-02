@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import NewTaskForm from '../forms/NewTaskForm';
 
-export default function NewTaskModal({ handleOpenSnackbar, setSnackbarMessage }) {
+export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -45,7 +45,7 @@ export default function NewTaskModal({ handleOpenSnackbar, setSnackbarMessage })
                     </Grid>
                 </Grid>
                 <DialogContent>
-                    <NewTaskForm handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} setSnackbarMessage={setSnackbarMessage} />
+                    <NewTaskForm handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} setSnackbarOptions={setSnackbarOptions} />
                 </DialogContent>
             </Dialog>
         </div>

@@ -6,7 +6,7 @@ import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
 
-function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarMessage }) {
+function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarOptions }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
@@ -17,14 +17,24 @@ function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarMessage 
             .then((response) => {
                 if (response.data) {
                     handleCloseModal();
-                    setSnackbarMessage("Tarefa adicionada");
+                    setSnackbarOptions(
+                        {
+                            message: "Tarefa adicionada",
+                            severity: "success"
+                        }
+                    );
                     handleOpenSnackbar();
-                } else {
-                    console.error("ocorreu um erro");
                 }
             })
             .catch((error) => {
                 console.error(error);
+                setSnackbarOptions(
+                    {
+                        message: "Erro ao adicionar a tarefa",
+                        severity: "error"
+                    }
+                );
+                handleOpenSnackbar();
             });
 
     }

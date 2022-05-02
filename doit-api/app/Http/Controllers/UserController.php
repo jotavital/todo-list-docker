@@ -96,4 +96,9 @@ class UserController extends Controller
 
         return response()->json(true, 200);
     }
+
+    public function checkIfUserAuthenticated()
+    {
+        return response()->json(Auth::check(), 200);
+    }
 }

@@ -26,3 +26,4 @@ Route::post('/user', [UserController::class, 'store']);
 
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
+Route::get('/auth/check', [UserController::class, 'checkIfUserAuthenticated']);

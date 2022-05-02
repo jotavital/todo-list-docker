@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
@@ -22,10 +21,10 @@ class CustomSnackBar extends Component {
                         elevation={6}
                         variant="filled"
                         onClose={this.props.handleCloseSnackbar}
-                        severity="success"
+                        severity={this.props.options.severity}
                         sx={{ width: '100%' }}
                     >
-                        {this.props.message}
+                        {this.props.options.message}
                     </MuiAlert>
                 </Snackbar>
             </Stack>
