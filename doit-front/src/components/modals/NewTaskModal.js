@@ -8,7 +8,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import NewTaskForm from '../forms/NewTaskForm';
 
-export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions, isModalOpen, handleCloseModal }) {
+export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions, isModalOpen, handleCloseModal, setWasTaskSuccessfullyAdded }) {
     return (
         <div>
             <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth maxWidth='sm'>
@@ -27,7 +27,7 @@ export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions, i
                     </Grid>
                 </Grid>
                 <DialogContent>
-                    <NewTaskForm handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} setSnackbarOptions={setSnackbarOptions} />
+                    <NewTaskForm setWasTaskSuccessfullyAdded={setWasTaskSuccessfullyAdded} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} setSnackbarOptions={setSnackbarOptions} />
                 </DialogContent>
             </Dialog>
         </div>

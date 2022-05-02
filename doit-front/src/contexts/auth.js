@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         if (isUserAuthenticated) {
             setUser(localStorage.getItem('authenticatedUser'));
         }
-    });
+    }, []);
 
     const login = (data) => {
         apiClient.post('/login', data)

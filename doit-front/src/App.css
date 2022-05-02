@@ -1,9 +1,16 @@
 :root{
     --navBarHeight: 60px;
+    --min-body-height: calc(100vh - var(--navBarHeight));
 }
 
 body {
     font-family: 'Roboto', sans-serif;
+}
+
+.app-body{
+    height: 100vh;
+    min-height: var(--min-body-height);
+    background-color: #e9ecef;
 }
 
 .text-white {
@@ -15,5 +22,5 @@ body {
 }
 
 .full-body-height{
-    min-height: calc(100vh - var(--navBarHeight));
+    min-height: var(--min-body-height);
 }

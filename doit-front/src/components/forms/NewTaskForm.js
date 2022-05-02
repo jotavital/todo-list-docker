@@ -6,7 +6,7 @@ import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
 
-function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarOptions }) {
+function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarOptions, setWasTaskSuccessfullyAdded }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
@@ -24,6 +24,7 @@ function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarOptions 
                         }
                     );
                     handleOpenSnackbar();
+                    setWasTaskSuccessfullyAdded(true);
                 }
             })
             .catch((error) => {

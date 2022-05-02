@@ -3,12 +3,14 @@ import NewTaskModal from "../modals/NewTaskModal";
 import CustomSnackbar from '../snackbars/CustomSnackbar';
 import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
+import TaskListing from "../TaskListing";
 
 function Tasks() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({});
+    const [wasTaskSuccessfullyAdded, setWasTaskSuccessfullyAdded] = useState(false);
 
     const handleOpenSnackbar = () => {
         setIsSnackbarOpen(true);
@@ -33,18 +35,21 @@ function Tasks() {
     return (
         <Grid container>
             <Grid container>
-                <Grid item xs={12} padding={3}>
+                <Grid item xs={12} padding={2}>
                     <Typography variant="h3" textAlign="center">Minhas tarefas</Typography>
                 </Grid>
             </Grid>
             <Grid container>
                 <Grid container justifyContent="center" padding={1}>
-                    <Fab color="success" variant="extended" onClick={handleOpenModal}>
-                        <AddIcon />
-                        Nova tarefa
-                    </Fab>
-                    <NewTaskModal isModalOpen={isModalOpen} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
+                    <Grid padding={1}>
+                        <Fab color="success" variant="extended" onClick={handleOpenModal}>
+                            <AddIcon />
+                            Nova tarefa
+                        </Fab>
+                    </Grid>
+                    <NewTaskModal setWasTaskSuccessfullyAdded={setWasTaskSuccessfullyAdded} isModalOpen={isModalOpen} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
                     <CustomSnackbar options={snackbarOptions} isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
+                    <TaskListing />
                 </Grid>
             </Grid>
         </Grid>
