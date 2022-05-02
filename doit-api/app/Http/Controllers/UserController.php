@@ -81,9 +81,9 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             return response()->json([
-                Auth::user()
+                Auth::guard('web')->user()
             ], 200);
         }
 
@@ -99,6 +99,6 @@ class UserController extends Controller
 
     public function checkIfUserAuthenticated()
     {
-        return response()->json(Auth::check(), 200);
+        return response()->json(Auth::guard('web')->check(), 200);
     }
 }
