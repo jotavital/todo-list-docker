@@ -7,8 +7,6 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
-    const [isUserAuthenticatedInApi, setIsUserAuthenticatedInApi] = useState(false);
-    const [isUserAuthenticationPromiseFullfilled, setIsUserAuthenticationPromiseFullfilled] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,6 +32,9 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('authenticatedUser');
 
         apiClient.post('/logout')
+            .then((response) => {
+                console.log(response);
+            })
             .catch((error) => {
                 console.error('Não foi possível fazer o logout.');
             });
@@ -41,28 +42,17 @@ export const AuthProvider = ({ children }) => {
         navigate('/login');
     }
 
-    const checkIfUserAuthenticatedInApi = () => {
-        apiClient.get('auth/check').then((response) => {
-            setIsUserAuthenticationPromiseFullfilled(true);
-            setIsUserAuthenticatedInApi(response.data);
-        });
-
-    }
-
     const isUserAuthenticated = () => {
         const storedUser = localStorage.getItem('authenticatedUser');
 
-        if (isUserAuthenticatedInApi && storedUser) {
-            if(!user){
-                setUser(JSON.parse(storedUser));
-            }
+        if (storedUser) {
             return true;
         }
         return false;
     }
 
     return (
-        <AuthContext.Provider value={{ isUserAuthenticationPromiseFullfilled, checkIfUserAuthenticatedInApi, setIsUserAuthenticatedInApi, isUserAuthenticated, user, login, logout }}>
+        <AuthContext.Provider value={{ isUserAuthenticated, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -10,7 +10,6 @@ import PrivateRoute from './PrivateRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 import NotFound from '../NotFound';
 import Tasks from '../pages/Tasks';
-import AuthChecker from "./AuthChecker";
 
 function AppRoutes() {
 
@@ -27,18 +26,14 @@ function AppRoutes() {
                 </UnauthenticatedRoute>
             } />
             <Route path='/' element={
-                <AuthChecker>
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                </AuthChecker>
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
             } />
             <Route path='/tasks' element={
-                <AuthChecker>
-                    <PrivateRoute>
-                        <Tasks />
-                    </PrivateRoute>
-                </AuthChecker>
+                <PrivateRoute>
+                    <Tasks />
+                </PrivateRoute>
             } />
             <Route path="*" element={<NotFound />} />
         </Routes>
