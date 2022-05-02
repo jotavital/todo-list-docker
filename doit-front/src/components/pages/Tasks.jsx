@@ -1,17 +1,14 @@
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Fab } from "@mui/material";
 import NewTaskModal from "../modals/NewTaskModal";
 import CustomSnackbar from '../snackbars/CustomSnackbar';
 import { useState } from "react";
+import AddIcon from '@mui/icons-material/Add';
 
 function Tasks() {
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-    const [snackbarOptions, setSnackbarOptions] = useState(
-        {
-            message: "",
-            severity: "error"
-        }
-    );
+    const [snackbarOptions, setSnackbarOptions] = useState({});
 
     const handleOpenSnackbar = () => {
         setIsSnackbarOpen(true);
@@ -25,6 +22,14 @@ function Tasks() {
         setIsSnackbarOpen(false);
     }
 
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <Grid container>
             <Grid container>
@@ -34,11 +39,12 @@ function Tasks() {
             </Grid>
             <Grid container>
                 <Grid container justifyContent="center" padding={1}>
-                    <NewTaskModal setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} />
+                    <Fab color="success" variant="extended" onClick={handleOpenModal}>
+                        <AddIcon />
+                        Nova tarefa
+                    </Fab>
+                    <NewTaskModal isModalOpen={isModalOpen} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
                     <CustomSnackbar options={snackbarOptions} isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
-                    <Button variant="outlined" onClick={handleOpenSnackbar}>
-                        Abrir mensagem
-                    </Button>
                 </Grid>
             </Grid>
         </Grid>

@@ -1,34 +1,16 @@
-import { useState } from 'react';
 import {
-    Fab,
     Dialog,
-    Button,
     DialogContent,
     DialogTitle,
     Grid,
     IconButton
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import NewTaskForm from '../forms/NewTaskForm';
 
-export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
+export default function NewTaskModal({ handleOpenSnackbar, setSnackbarOptions, isModalOpen, handleCloseModal }) {
     return (
         <div>
-            <Fab color="success" variant="extended" onClick={handleOpenModal}>
-                <AddIcon />
-                Nova tarefa
-            </Fab>
             <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth maxWidth='sm'>
                 <Grid container>
                     <Grid item xs={11}>
