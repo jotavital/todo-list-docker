@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { apiClient } from '../providers/apiClient';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,8 +7,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
-
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isUserAuthenticated) {
+            setUser(localStorage.getItem('authenticatedUser'));
+        }
+    });
 
     const login = (data) => {
         apiClient.post('/login', data)
