@@ -12,6 +12,7 @@ function Tasks() {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({});
     const [wasTaskSuccessfullyAdded, setWasTaskSuccessfullyAdded] = useState(false);
+    const [taskDeletedStatus, setTaskDeletedStatus] = useState(null);
     const [needsToUpdateTaskList, setNeedsToUpdateTaskList] = useState(false);
     const [tasks, setTasks] = useState(null);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -48,15 +49,32 @@ function Tasks() {
         getTasks();
     }, []);
 
-    if(needsToUpdateTaskList){
+    if (needsToUpdateTaskList) {
         setNeedsToUpdateTaskList(false);
         getTasks();
     }
 
-    if(wasTaskSuccessfullyAdded){
+    if (wasTaskSuccessfullyAdded) {
         setWasTaskSuccessfullyAdded(false);
         setNeedsToUpdateTaskList(true);
         handleCloseModal();
+        handleOpenSnackbar();
+    }
+
+    if (taskDeletedStatus === 'success') {
+        setTaskDeletedStatus(null);
+        setNeedsToUpdateTaskList(true);
+        setSnackbarOptions({
+            message: 'Tarefa excluída',
+            severity: 'success'
+        });
+        handleOpenSnackbar();
+    } else if (taskDeletedStatus === 'error') {
+        setTaskDeletedStatus(null);
+        setSnackbarOptions({
+            message: 'Erro ao excluir tarefa',
+            severity: 'error'
+        });
         handleOpenSnackbar();
     }
 
@@ -75,9 +93,23 @@ function Tasks() {
                             Nova tarefa
                         </Fab>
                     </Grid>
-                    <NewTaskModal setWasTaskSuccessfullyAdded={setWasTaskSuccessfullyAdded} isModalOpen={isModalOpen} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
-                    <CustomSnackbar options={snackbarOptions} isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
-                    <TaskListing tasks={tasks} isDataLoaded={isDataLoaded} />
+                    <NewTaskModal
+                        setWasTaskSuccessfullyAdded={setWasTaskSuccessfullyAdded}
+                        isModalOpen={isModalOpen}
+                        setSnackbarOptions={setSnackbarOptions}
+                        handleOpenSnackbar={handleOpenSnackbar}
+                        handleCloseModal={handleCloseModal}
+                    />
+                    <CustomSnackbar
+                        options={snackbarOptions}
+                        isOpen={isSnackbarOpen}
+                        handleCloseSnackbar={handleCloseSnackbar}
+                    />
+                    <TaskListing
+                        tasks={tasks}
+                        isDataLoaded={isDataLoaded}
+                        setTaskDeletedStatus={setTaskDeletedStatus}
+                    />
                 </Grid>
             </Grid>
         </Grid>

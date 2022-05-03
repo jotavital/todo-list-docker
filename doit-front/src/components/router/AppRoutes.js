@@ -3,7 +3,6 @@ import {
     Route
 } from 'react-router-dom';
 
-import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import PrivateRoute from './PrivateRoute';
@@ -27,7 +26,7 @@ function AppRoutes() {
             } />
             <Route path='/' element={
                 <PrivateRoute>
-                    <Home />
+                    <Tasks />
                 </PrivateRoute>
             } />
             <Route path='/tasks' element={

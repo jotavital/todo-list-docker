@@ -2,7 +2,6 @@ import { Grid, Button, Stack } from "@mui/material";
 import { useContext } from "react";
 import { useForm } from 'react-hook-form';
 import { AuthContext } from "../../contexts/auth";
-import ConsoleLogUsers from '../test/ConsoleLogUsers';
 import EmailInput from "./inputs/EmailInput";
 import PasswordInput from "./inputs/PasswordInput";
 
@@ -24,7 +23,6 @@ function LoginForm() {
                     <Button variant='contained' color='success' type='submit'>Entrar</Button>
                 </Grid>
             </Stack>
-            <ConsoleLogUsers />
         </form>
     );
 }

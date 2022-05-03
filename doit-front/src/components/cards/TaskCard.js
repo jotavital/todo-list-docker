@@ -4,9 +4,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DateTimeAndClock from '../DateTimeAndClock';
 import CardTitle from './CardTitle';
+import { apiClient } from '../../providers/apiClient';
 
-export default function TaskCard({ taskId, title, description, due_date, status }) {
+export default function TaskCard({ taskId, title, description, due_date, status, setTaskDeletedStatus }) {
     const [temporaryStatus, setTemporaryStatus] = useState(status);
+
+    const handleDeleteTask = (taskId) => {
+        apiClient.delete('/task/' + taskId)
+            .then(() => {
+                setTaskDeletedStatus('success');
+            })
+            .catch((error) => {
+                console.error(error);
+                setTaskDeletedStatus('error');
+            });
+    }
 
     return (
         <Grid item xs={12} sm={6} md={4} >
@@ -29,7 +41,9 @@ export default function TaskCard({ taskId, title, description, due_date, status 
                     <IconButton>
                         <EditIcon color='primary'></EditIcon>
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={() => {
+                        handleDeleteTask(taskId);
+                    }}>
                         <DeleteIcon color='error'></DeleteIcon>
                     </IconButton>
                 </CardActions>

@@ -92,7 +92,13 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id)->first();
+
+        if ($task->delete()) {
+            return response()->json(true, 200);
+        } else {
+            return response()->json(false, 500);
+        }
     }
 
     public function toggleStatus($id)

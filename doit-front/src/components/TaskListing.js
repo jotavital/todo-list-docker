@@ -1,7 +1,7 @@
 import { Grid, CircularProgress, Typography, Alert } from '@mui/material';
 import TaskCard from './cards/TaskCard';
 
-function TaskListing({tasks, isDataLoaded}) {
+function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
 
     if (!isDataLoaded) {
         return (
@@ -15,7 +15,15 @@ function TaskListing({tasks, isDataLoaded}) {
             {tasks.length
                 ?
                 tasks.map((task) => {
-                    return <TaskCard key={task.id} taskId={task.id} title={task.title} due_date={task.due_date} description={task.description} status={task.status} />
+                    return <TaskCard
+                        key={task.id}
+                        taskId={task.id}
+                        title={task.title}
+                        due_date={task.due_date}
+                        description={task.description}
+                        status={task.status}
+                        setTaskDeletedStatus={setTaskDeletedStatus}
+                    />
                 })
                 :
                 <Grid container justifyContent='center' padding={10}>
