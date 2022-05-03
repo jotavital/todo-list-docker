@@ -1,9 +1,10 @@
 import { Grid, Typography, Fab } from "@mui/material";
 import NewTaskModal from "../modals/NewTaskModal";
 import CustomSnackbar from '../snackbars/CustomSnackbar';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import TaskListing from "../TaskListing";
+import { apiClient } from "../../providers/apiClient";
 
 function Tasks() {
 
@@ -11,6 +12,8 @@ function Tasks() {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({});
     const [wasTaskSuccessfullyAdded, setWasTaskSuccessfullyAdded] = useState(false);
+    const [tasks, setTasks] = useState(null);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const handleOpenSnackbar = () => {
         setIsSnackbarOpen(true);
@@ -32,11 +35,28 @@ function Tasks() {
         setIsModalOpen(false);
     };
 
+    const getTasks = () => {
+        setIsDataLoaded(false);
+        apiClient.get('/task').then(({ data }) => {
+            setTasks(data);
+            setIsDataLoaded(true);
+        });
+    }
+
+    useEffect(() => {
+        getTasks();
+    }, []);
+
+    if(wasTaskSuccessfullyAdded){
+        setWasTaskSuccessfullyAdded(false);
+        getTasks();
+    }
+
     return (
         <Grid container>
             <Grid container>
                 <Grid item xs={12} padding={2}>
-                    <Typography variant="h3" textAlign="center">Minhas tarefas</Typography>
+                    <Typography variant="h4" textAlign="center">Minhas tarefas</Typography>
                 </Grid>
             </Grid>
             <Grid container>
@@ -49,7 +69,7 @@ function Tasks() {
                     </Grid>
                     <NewTaskModal setWasTaskSuccessfullyAdded={setWasTaskSuccessfullyAdded} isModalOpen={isModalOpen} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
                     <CustomSnackbar options={snackbarOptions} isOpen={isSnackbarOpen} handleCloseSnackbar={handleCloseSnackbar} />
-                    <TaskListing />
+                    <TaskListing tasks={tasks} isDataLoaded={isDataLoaded} />
                 </Grid>
             </Grid>
         </Grid>
