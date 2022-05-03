@@ -8,7 +8,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import NewTaskForm from '../forms/NewTaskForm';
 
-export default function EditTaskModal({ setWasTaskSuccessfullyEdited, handleOpenSnackbar, isModalOpen, handleCloseModal, taskDataToEdit }) {
+export default function EditTaskModal({ setTaskEditedStatus, handleOpenSnackbar, setSnackbarOptions, isModalOpen, handleCloseModal, taskDataToEdit }) {
 
     return (
         <div>
@@ -28,7 +28,7 @@ export default function EditTaskModal({ setWasTaskSuccessfullyEdited, handleOpen
                     </Grid>
                 </Grid>
                 <DialogContent>
-                    <NewTaskForm taskDataToEdit={taskDataToEdit} setWasTaskSuccessfullyEdited={setWasTaskSuccessfullyEdited} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
+                    <NewTaskForm taskDataToEdit={taskDataToEdit} setTaskEditedStatus={setTaskEditedStatus} setSnackbarOptions={setSnackbarOptions} handleOpenSnackbar={handleOpenSnackbar} handleCloseModal={handleCloseModal} />
                 </DialogContent>
             </Dialog>
         </div>

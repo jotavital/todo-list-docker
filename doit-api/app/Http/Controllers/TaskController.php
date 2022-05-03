@@ -81,7 +81,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->due_date = $request->due_date;
+
+        if ($task->save()) {
+            return response()->json(true, 200);
+        } else {
+            return response()->json(false, 500);
+        }
+
+        return response()->json('update method');
     }
 
     /**

@@ -12,6 +12,7 @@ function Tasks() {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({});
     const [wasTaskSuccessfullyAdded, setWasTaskSuccessfullyAdded] = useState(false);
+    const [taskEditedStatus, setTaskEditedStatus] = useState(null);
     const [taskDeletedStatus, setTaskDeletedStatus] = useState(null);
     const [needsToUpdateTaskList, setNeedsToUpdateTaskList] = useState(false);
     const [tasks, setTasks] = useState(null);
@@ -78,6 +79,24 @@ function Tasks() {
         handleOpenSnackbar();
     }
 
+    if (taskEditedStatus === 'success') {
+        setTaskEditedStatus(null);
+        setNeedsToUpdateTaskList(true);
+        setSnackbarOptions({
+            message: 'Tarefa editada',
+            severity: 'success'
+        });
+        handleOpenSnackbar();
+        handleCloseModal();
+    } else if (taskEditedStatus === 'error') {
+        setTaskEditedStatus(null);
+        setSnackbarOptions({
+            message: 'Erro ao editar tarefa',
+            severity: 'error'
+        });
+        handleOpenSnackbar();
+    }
+
     return (
         <Grid container>
             <Grid container>
@@ -106,6 +125,8 @@ function Tasks() {
                         handleCloseSnackbar={handleCloseSnackbar}
                     />
                     <TaskListing
+                        setTaskEditedStatus={setTaskEditedStatus}
+                        setSnackbarOptions={setSnackbarOptions}
                         tasks={tasks}
                         isDataLoaded={isDataLoaded}
                         setTaskDeletedStatus={setTaskDeletedStatus}

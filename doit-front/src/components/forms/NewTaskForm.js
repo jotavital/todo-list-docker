@@ -6,36 +6,50 @@ import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
 
-function NewTaskForm({ setWasTaskSuccessfullyAdded, handleCloseModal, handleOpenSnackbar, setSnackbarOptions, taskDataToEdit }) {
+function NewTaskForm({ setWasTaskSuccessfullyAdded, setTaskEditedStatus, handleCloseModal, handleOpenSnackbar, setSnackbarOptions, taskDataToEdit }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        data.due_date = (data.due_date != null) ? formatDate(data.due_date, 'yyyy-MM-dd HH:mm:ii') : null;
+        data.due_date = (data.due_date != null) ? formatDate(new Date(data.due_date), 'yyyy-MM-dd HH:mm:ii') : null;
 
-        apiClient.post('/task', data)
-            .then((response) => {
-                if (response.data) {
+        if ((!taskDataToEdit)) {
+            apiClient.post('/task', data)
+                .then((response) => {
+                    if (response.data) {
+                        setSnackbarOptions(
+                            {
+                                message: "Tarefa adicionada",
+                                severity: "success"
+                            }
+                        );
+                        setWasTaskSuccessfullyAdded(true);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
                     setSnackbarOptions(
                         {
-                            message: "Tarefa adicionada",
-                            severity: "success"
+                            message: "Erro ao adicionar a tarefa",
+                            severity: "error"
                         }
                     );
-                    setWasTaskSuccessfullyAdded(true);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                setSnackbarOptions(
-                    {
-                        message: "Erro ao adicionar a tarefa",
-                        severity: "error"
+                    handleOpenSnackbar();
+                });
+        } else {
+            apiClient.put('/task/' + taskDataToEdit.id, data)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data) {
+                        setTaskEditedStatus('success');
+                        handleCloseModal();
                     }
-                );
-                handleOpenSnackbar();
-            });
-
+                })
+                .catch((error) => {
+                    console.error(error);
+                    setTaskEditedStatus('error');
+                });
+        }
     }
 
     return (

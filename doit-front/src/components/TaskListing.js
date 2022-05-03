@@ -3,7 +3,7 @@ import { useState } from 'react';
 import TaskCard from './cards/TaskCard';
 import EditTaskModal from './modals/EditTaskModal';
 
-function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
+function TaskListing({ tasks, isDataLoaded, setSnackbarOptions, setTaskDeletedStatus, setTaskEditedStatus }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [taskDataToEdit, setTaskDataToEdit] = useState(null);
@@ -51,7 +51,7 @@ function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
                     </Alert>
                 </Grid>
             }
-            <EditTaskModal taskDataToEdit={taskDataToEdit} isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
+            <EditTaskModal setTaskEditedStatus={setTaskEditedStatus} taskDataToEdit={taskDataToEdit} setSnackbarOptions={setSnackbarOptions} isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
         </Grid>
     );
 }
