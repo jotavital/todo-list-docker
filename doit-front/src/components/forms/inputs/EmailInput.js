@@ -8,7 +8,6 @@ function EmailInput({ errors, register }) {
             helperText={errors.email?.message}
             label='E-mail'
             type='email'
-            defaultValue='teste@g.com'
             {...register('email',
                 {
                     required: {

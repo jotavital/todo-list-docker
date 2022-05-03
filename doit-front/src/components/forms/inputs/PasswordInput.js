@@ -8,7 +8,6 @@ function PasswordInput({ errors, register }) {
             helperText={errors.password?.message}
             label='Senha'
             type='password'
-            defaultValue='123'
             {...register('password',
                 {
                     required: {

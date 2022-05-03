@@ -8,7 +8,6 @@ function NameInput({ errors, register }) {
             helperText={errors.name?.message}
             label='Nome'
             type='text'
-            defaultValue="João Pedro Vital"
             {...register('name',
                 {
                     required: {
