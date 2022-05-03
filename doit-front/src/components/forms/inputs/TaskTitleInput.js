@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 
-function TaskTitleInput({ errors, register }) {
+function TaskTitleInput({ errors, register, value }) {
     return (
         <TextField
             fullWidth
@@ -8,6 +8,7 @@ function TaskTitleInput({ errors, register }) {
             helperText={errors.title?.message}
             label='Título'
             type='text'
+            defaultValue={value}
             {...register('title',
                 {
                     required: {

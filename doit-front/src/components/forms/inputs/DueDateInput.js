@@ -5,14 +5,16 @@ import ptBrLocale from 'date-fns/locale/pt-BR';
 import { Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
-function DueDateInput({ control }) {
+function DueDateInput({ control, defaultValue }) {
+
+    defaultValue = (defaultValue) ? defaultValue : null;
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBrLocale} >
             <Controller
                 control={control}
                 name="due_date"
-                defaultValue={null}
+                defaultValue={defaultValue}
                 render={({ field: { onChange, value } }) => (
                     <DateTimePicker
                         label="Prazo"

@@ -6,7 +6,7 @@ import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
 
-function NewTaskForm({ setWasTaskSuccessfullyAdded, handleCloseModal, handleOpenSnackbar, setSnackbarOptions }) {
+function NewTaskForm({ setWasTaskSuccessfullyAdded, handleCloseModal, handleOpenSnackbar, setSnackbarOptions, taskDataToEdit }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
@@ -41,9 +41,9 @@ function NewTaskForm({ setWasTaskSuccessfullyAdded, handleCloseModal, handleOpen
     return (
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                <TaskTitleInput register={register} errors={errors} />
-                <TaskDescriptionInput register={register} errors={errors} />
-                <DueDateInput control={control} />
+                <TaskTitleInput register={register} errors={errors} value={taskDataToEdit?.title} />
+                <TaskDescriptionInput register={register} errors={errors} value={taskDataToEdit?.description} />
+                <DueDateInput control={control} defaultValue={taskDataToEdit?.due_date} />
                 <DialogActions>
                     <Button onClick={handleCloseModal} color='error' variant='outlined'>Voltar</Button>
                     <Button color='success' type='submit' variant='contained'>Salvar</Button>

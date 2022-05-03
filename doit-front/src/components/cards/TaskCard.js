@@ -6,7 +6,7 @@ import DateTimeAndClock from '../DateTimeAndClock';
 import CardTitle from './CardTitle';
 import { apiClient } from '../../providers/apiClient';
 
-export default function TaskCard({ taskId, title, description, due_date, status, setTaskDeletedStatus }) {
+export default function TaskCard({ task, taskId, title, description, due_date, status, setTaskDeletedStatus, handleOpenModal, setTaskDataToEdit }) {
     const [temporaryStatus, setTemporaryStatus] = useState(status);
 
     const handleDeleteTask = (taskId) => {
@@ -18,6 +18,11 @@ export default function TaskCard({ taskId, title, description, due_date, status,
                 console.error(error);
                 setTaskDeletedStatus('error');
             });
+    }
+
+    const handleEditTask = (task) => {
+        setTaskDataToEdit(task);
+        handleOpenModal();
     }
 
     return (
@@ -38,7 +43,9 @@ export default function TaskCard({ taskId, title, description, due_date, status,
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center' }}>
-                    <IconButton>
+                    <IconButton onClick={() => {
+                        handleEditTask(task);
+                    }}>
                         <EditIcon color='primary'></EditIcon>
                     </IconButton>
                     <IconButton onClick={() => {

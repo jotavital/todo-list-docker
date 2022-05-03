@@ -1,7 +1,21 @@
 import { Grid, CircularProgress, Typography, Alert } from '@mui/material';
+import { useState } from 'react';
 import TaskCard from './cards/TaskCard';
+import EditTaskModal from './modals/EditTaskModal';
 
 function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [taskDataToEdit, setTaskDataToEdit] = useState(null);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const handleCloseModal = () => {
+        setTaskDataToEdit(null);
+        setIsModalOpen(false);
+    }
 
     if (!isDataLoaded) {
         return (
@@ -23,6 +37,9 @@ function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
                         description={task.description}
                         status={task.status}
                         setTaskDeletedStatus={setTaskDeletedStatus}
+                        handleOpenModal={handleOpenModal}
+                        task={task}
+                        setTaskDataToEdit={setTaskDataToEdit}
                     />
                 })
                 :
@@ -34,6 +51,7 @@ function TaskListing({ tasks, isDataLoaded, setTaskDeletedStatus }) {
                     </Alert>
                 </Grid>
             }
+            <EditTaskModal taskDataToEdit={taskDataToEdit} isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
         </Grid>
     );
 }
