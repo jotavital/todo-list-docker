@@ -13,12 +13,12 @@ export default function NewTaskModal({ setWasTaskSuccessfullyAdded, handleOpenSn
         <div>
             <Dialog open={isModalOpen} onClose={handleCloseModal} fullWidth maxWidth='sm'>
                 <Grid container>
-                    <Grid item xs={11}>
+                    <Grid item xs={10}>
                         <DialogTitle>
                             Nova tarefa
                         </DialogTitle>
                     </Grid>
-                    <Grid container item xs={1} alignItems='center' justifyContent='center'>
+                    <Grid container item xs={1} sm={2} alignItems='center' justifyContent='center'>
                         <Grid>
                             <IconButton onClick={handleCloseModal}>
                                 <CloseIcon></CloseIcon>
