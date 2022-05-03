@@ -12,6 +12,8 @@ services:
       - /doit-api/vendor
     networks:
       - doit-network
+    depends_on:
+      - "doit-mysql"
 
   doit-front:
     build: ./doit-front
@@ -23,6 +25,8 @@ services:
       - /doit-front/node_modules
     networks:
       - doit-network
+    depends_on:
+      - "doit-api"
 
   doit-mysql:
     build: ./.docker/mysql
