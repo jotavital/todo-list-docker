@@ -6,24 +6,22 @@ import TaskDescriptionInput from "./inputs/TaskDescriptionInput";
 import { apiClient } from '../../providers/apiClient';
 import { format as formatDate } from 'date-fns';
 
-function NewTaskForm({ handleCloseModal, handleOpenSnackbar, setSnackbarOptions, setWasTaskSuccessfullyAdded }) {
+function NewTaskForm({ setWasTaskSuccessfullyAdded, handleCloseModal, handleOpenSnackbar, setSnackbarOptions }) {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        data.due_date = formatDate(data.due_date, 'yyyy-MM-dd HH:mm:ii');
+        data.due_date = (data.due_date != null) ? formatDate(data.due_date, 'yyyy-MM-dd HH:mm:ii') : null;
 
         apiClient.post('/task', data)
             .then((response) => {
                 if (response.data) {
-                    handleCloseModal();
                     setSnackbarOptions(
                         {
                             message: "Tarefa adicionada",
                             severity: "success"
                         }
                     );
-                    handleOpenSnackbar();
                     setWasTaskSuccessfullyAdded(true);
                 }
             })

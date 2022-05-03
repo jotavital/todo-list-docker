@@ -12,6 +12,7 @@ function Tasks() {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({});
     const [wasTaskSuccessfullyAdded, setWasTaskSuccessfullyAdded] = useState(false);
+    const [needsToUpdateTaskList, setNeedsToUpdateTaskList] = useState(false);
     const [tasks, setTasks] = useState(null);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
 
@@ -47,9 +48,16 @@ function Tasks() {
         getTasks();
     }, []);
 
+    if(needsToUpdateTaskList){
+        setNeedsToUpdateTaskList(false);
+        getTasks();
+    }
+
     if(wasTaskSuccessfullyAdded){
         setWasTaskSuccessfullyAdded(false);
-        getTasks();
+        setNeedsToUpdateTaskList(true);
+        handleCloseModal();
+        handleOpenSnackbar();
     }
 
     return (

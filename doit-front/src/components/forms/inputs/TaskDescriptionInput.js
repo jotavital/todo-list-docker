@@ -10,14 +10,7 @@ function TaskDescriptionInput({ errors, register }) {
             multiline
             rows={2}
             type='text'
-            {...register('description',
-                {
-                    required: {
-                        value: true,
-                        message: 'Campo obrigatório'
-                    }
-                }
-            )}
+            {...register('description')}
         />
     );
 }

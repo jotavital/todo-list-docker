@@ -12,7 +12,7 @@ function DueDateInput({ control }) {
             <Controller
                 control={control}
                 name="due_date"
-                defaultValue={new Date()}
+                defaultValue={null}
                 render={({ field: { onChange, value } }) => (
                     <DateTimePicker
                         label="Prazo"

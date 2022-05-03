@@ -94,4 +94,21 @@ class TaskController extends Controller
     {
         //
     }
+
+    public function toggleStatus($id)
+    {
+        $task = Task::find($id);
+
+        if ($task->status) {
+            $task->status = 0;
+        } else {
+            $task->status = 1;
+        }
+
+        if ($task->save()) {
+            return response()->json(true, 200);
+        } else {
+            return response()->json(false, 500);
+        }
+    }
 }

@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(
     function () {
         Route::resource('user', UserController::class)->except(['store']);
         Route::resource('task', TaskController::class);
+        Route::post('/task/togglestatus/{id}', [TaskController::class, 'toggleStatus']);
     }
 );
 

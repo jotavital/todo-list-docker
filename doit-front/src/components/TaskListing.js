@@ -15,7 +15,7 @@ function TaskListing({tasks, isDataLoaded}) {
             {tasks.length
                 ?
                 tasks.map((task) => {
-                    return <TaskCard key={task.id} title={task.title} due_date={task.due_date} description={task.description} status={task.status} />
+                    return <TaskCard key={task.id} taskId={task.id} title={task.title} due_date={task.due_date} description={task.description} status={task.status} />
                 })
                 :
                 <Grid container justifyContent='center' padding={10}>
