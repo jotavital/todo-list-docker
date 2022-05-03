@@ -6,14 +6,13 @@ WORKDIR /doit-front
 
 RUN mkdir .docker
 
-COPY package.json .
+# COPY package.json .
 
 # update dependencies
-RUN yarn
+# RUN yarn
 
 COPY . .
 
-# COPY /.docker/entrypoint.sh ./.docker
 ENTRYPOINT ["sh", "./.docker/entrypoint.sh"]
 
 EXPOSE 3000
